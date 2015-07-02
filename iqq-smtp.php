@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: IQQ WP SMTP
-Version: 0.1
+Version: 0.1.1
 Description: Reconfigures the wp_mail() function to use desired SMTP instead of mail() and creates an options page to manage the settings.
 Author: IQQ
 Author URI: http://www.iqq.se
