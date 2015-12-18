@@ -2,7 +2,7 @@
 
 /*
 Plugin Name: IQQ WP SMTP
-Version: 0.1.1
+Version: 0.1.2
 Description: Reconfigures the wp_mail() function to use desired SMTP instead of mail() and creates an options page to manage the settings.
 Author: IQQ
 Author URI: http://www.iqq.se
@@ -21,11 +21,19 @@ class IQQ_SMTP {
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'add_options_page' ) );
 		add_action( 'network_admin_menu', array( __CLASS__, 'add_options_page' ) );
-		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( __CLASS__, 'add_settings_page_link' ) );
-		add_filter( 'network_admin_plugin_action_links_' . plugin_basename( __FILE__ ), array( __CLASS__, 'add_settings_page_link' ) );
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array(
+			__CLASS__,
+			'add_settings_page_link'
+		) );
+		add_filter( 'network_admin_plugin_action_links_' . plugin_basename( __FILE__ ), array(
+			__CLASS__,
+			'add_settings_page_link'
+		) );
 		add_action( 'admin_init', array( __CLASS__, 'add_options' ) );
 		add_action( 'admin_post_update_iqq_smtp_settings', array( __CLASS__, 'update_network_settings' ) );
 		add_action( 'phpmailer_init', array( __CLASS__, 'configure_smtp' ) );
+		add_filter( 'site_option_iqq-smtp-active', array( __CLASS__, 'active_filter' ) );
+		add_filter( 'option_iqq-smtp-active', array( __CLASS__, 'active_filter' ) );
 	}
 
 	public static function add_options_page() {
@@ -61,7 +69,7 @@ class IQQ_SMTP {
 
 	function add_settings_page_link( $links ) {
 
-		if( self::is_network_activated() ) {
+		if ( self::is_network_activated() ) {
 			$settings_link = '<a href="' . network_admin_url( 'settings.php?page=smtp' ) . '">' . __( 'Settings' ) . '</a>';
 		} else {
 			$settings_link = '<a href="' . admin_url( 'options-general.php?page=smtp' ) . '">' . __( 'Settings' ) . '</a>';
@@ -189,6 +197,15 @@ class IQQ_SMTP {
 				$phpmailer->From = get_option( 'iqq-smtp-sendermail' );
 			}
 		}
+	}
+
+	static function active_filter( $value ) {
+
+		if ( defined( 'IQQ_SMTP_ACTIVE' ) && ! IQQ_SMTP_ACTIVE ) {
+			$value = false;
+		}
+
+		return $value;
 	}
 }
 
