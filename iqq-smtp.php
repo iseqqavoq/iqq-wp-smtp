@@ -8,8 +8,7 @@ Author: IQQ
 Author URI: http://www.iqq.se
 Domain Path: /languages
 Text Domain: iqq
-License: GPL2
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+License: GPLv2 or later
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
