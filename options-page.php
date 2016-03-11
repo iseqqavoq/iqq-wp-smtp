@@ -1,4 +1,6 @@
-<?php if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly ?>
+<?php if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly ?>
 
 <div class="wrap">
 
@@ -35,7 +37,7 @@
 			<tr>
 				<th scope="row"><label for="iqq-smtp-host"><?php _e( 'Host', 'iqq' ) ?></label></th>
 				<td><input type="text" name="iqq-smtp-host" id="iqq-smtp-host"
-				           value="<?php echo esc_attr( get_option( 'iqq-smtp-host' ) ); ?>"
+				           value="<?php echo esc_url( get_option( 'iqq-smtp-host' ) ); ?>"
 				           required <?php echo $disabled ?>/></td>
 			</tr>
 			<tr>
