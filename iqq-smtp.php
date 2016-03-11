@@ -69,9 +69,9 @@ class IQQ_SMTP {
 	function add_settings_page_link( $links ) {
 
 		if ( self::is_network_activated() ) {
-			$settings_link = '<a href="' . network_admin_url( 'settings.php?page=smtp' ) . '">' . __( 'Settings' ) . '</a>';
+			$settings_link = '<a href="' . esc_url( network_admin_url( 'settings.php?page=smtp' ) ) . '">' . __( 'Settings' ) . '</a>';
 		} else {
-			$settings_link = '<a href="' . admin_url( 'options-general.php?page=smtp' ) . '">' . __( 'Settings' ) . '</a>';
+			$settings_link = '<a href="' . esc_url( admin_url( 'options-general.php?page=smtp' ) ) . '">' . __( 'Settings' ) . '</a>';
 		}
 
 		array_push( $links, $settings_link );
@@ -98,12 +98,12 @@ class IQQ_SMTP {
 
 		// Save options
 		update_site_option( 'iqq-smtp-active', $_POST['iqq-smtp-active'] );
-		update_site_option( 'iqq-smtp-host', $_POST['iqq-smtp-host'] );
-		update_site_option( 'iqq-smtp-port', $_POST['iqq-smtp-port'] );
-		update_site_option( 'iqq-smtp-username', $_POST['iqq-smtp-username'] );
+		update_site_option( 'iqq-smtp-host', sanitize_text_field( $_POST['iqq-smtp-host'] ) );
+		update_site_option( 'iqq-smtp-port', intval( $_POST['iqq-smtp-port'] ) );
+		update_site_option( 'iqq-smtp-username', sanitize_text_field( $_POST['iqq-smtp-username'] ) );
 		update_site_option( 'iqq-smtp-password', $_POST['iqq-smtp-password'] );
-		update_site_option( 'iqq-smtp-sender', $_POST['iqq-smtp-sender'] );
-		update_site_option( 'iqq-smtp-sendermail', $_POST['iqq-smtp-sendermail'] );
+		update_site_option( 'iqq-smtp-sender', sanitize_text_field( $_POST['iqq-smtp-sender'] ) );
+		update_site_option( 'iqq-smtp-sendermail', sanitized_email( $_POST['iqq-smtp-sendermail'] ) );
 
 		wp_redirect( admin_url( 'network/settings.php?page=smtp' ) );
 		exit;
