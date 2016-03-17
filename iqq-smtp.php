@@ -66,7 +66,7 @@ class IQQ_SMTP {
 
 	}
 
-	function add_settings_page_link( $links ) {
+	public static function add_settings_page_link( $links ) {
 
 		if ( self::is_network_activated() ) {
 			$settings_link = '<a href="' . esc_url( network_admin_url( 'settings.php?page=smtp' ) ) . '">' . __( 'Settings' ) . '</a>';
@@ -113,7 +113,7 @@ class IQQ_SMTP {
 
 		$plugin_file = plugin_basename( __FILE__ );
 
-		return ( array_key_exists( $plugin_file, maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) ) ) );
+		return ( array_key_exists( $plugin_file, array( maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) ) ) ) );
 	}
 
 	public static function settings_in_wp_config() {
