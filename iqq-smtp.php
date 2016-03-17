@@ -66,7 +66,7 @@ class IQQ_SMTP {
 
 	}
 
-	function add_settings_page_link( $links ) {
+	public static function add_settings_page_link( $links ) {
 
 		if ( self::is_network_activated() ) {
 			$settings_link = '<a href="' . esc_url( network_admin_url( 'settings.php?page=smtp' ) ) . '">' . __( 'Settings' ) . '</a>';
