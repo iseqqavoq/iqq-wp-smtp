@@ -113,7 +113,7 @@ class IQQ_SMTP {
 
 		$plugin_file = plugin_basename( __FILE__ );
 
-		return ( array_key_exists( $plugin_file, maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) ) ) );
+		return ( array_key_exists( $plugin_file, array( maybe_unserialize( get_site_option( 'active_sitewide_plugins' ) ) ) ) );
 	}
 
 	public static function settings_in_wp_config() {
